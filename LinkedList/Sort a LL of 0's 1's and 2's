@@ -1,0 +1,91 @@
+/**
+ * Problem: Sort a LL of 0's 1's and 2's
+ * Source: https://takeuforward.org/plus/dsa/problems/sort-a-ll-of-0's-1's-and-2's
+ */
+
+/* Definition of singly Linked List:
+class ListNode {
+    int val;
+    ListNode next;
+
+    ListNode(int data1) {
+        val = data1;
+        next = null;
+    }
+
+    ListNode(int data1, ListNode next1) {
+        val = data1;
+        next = next1;
+    }
+}
+*/
+
+class Solution {
+    public ListNode sortList(ListNode head) {
+        if(head==null || head.next==null){
+            return head;
+        }
+
+        ListNode head0=null, tail0=null;
+        ListNode head1=null, tail1=null;
+        ListNode head2=null, tail2=null;
+
+        ListNode curr=head;
+        while(curr!=null){
+            ListNode nxt=curr.next;
+            curr.next=null;
+
+            if(curr.val==0){
+                if(head0==null){
+                    head0=curr;
+                    tail0=curr;
+                }else{
+                    tail0.next=curr;
+                    tail0=tail0.next;
+                }
+            }else if(curr.val==1){
+                if(head1==null){
+                    head1=curr;
+                    tail1=curr;
+                }else{
+                    tail1.next=curr;
+                    tail1=tail1.next;
+                }
+            }else{
+                if(head2==null){
+                    head2=curr;
+                    tail2=curr;
+                }else{
+                    tail2.next=curr;
+                    tail2=tail2.next;
+                }
+            }
+            curr=nxt;
+        }
+
+        ListNode anshead=null, anstail=null;
+        if(head0!=null){
+            anshead=head0;
+            anstail=tail0;
+        }
+        if(head1!=null){
+            if(anshead==null){
+                anshead=head1;
+                anstail=tail1;
+            }else{
+                anstail.next=head1;
+                anstail=tail1;
+            }
+        }
+        if(head2!=null){
+            if(anshead==null){
+                anshead=head2;
+                anstail=tail2;
+            }else{
+                anstail.next=head2;
+                anstail=tail2;
+            }
+        }
+        return anshead;
+    }
+}
