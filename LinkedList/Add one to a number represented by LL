@@ -1,0 +1,61 @@
+/**
+ * Problem: Add one to a number represented by LL
+ * Source: https://takeuforward.org/plus/dsa/problems/add-one-to-a-number-represented-by-ll
+ */
+
+/*Definition of singly linked list:
+class ListNode {
+    int val;
+    ListNode next;
+
+    ListNode() {
+        val = 0;
+        next = null;
+    }
+
+    ListNode(int data1) {
+        val = data1;
+        next = null;
+    }
+
+    ListNode(int data1, ListNode next1) {
+        val = data1;
+        next = next1;
+    }
+}
+ */
+
+class Solution {
+    public ListNode addOne(ListNode head) {
+        ListNode first=reverse(head);
+        
+        ListNode temp=first;
+        int carry=1;
+        ListNode prev=null;
+        while(temp!=null && carry!=0){
+            int digit=temp.val;
+            int sum=digit+carry;
+            temp.val=sum%10;
+            carry=sum/10;
+            prev=temp;
+            temp=temp.next;
+        }
+        if(carry!=0){
+            prev.next=new ListNode(carry);
+        }
+
+        return reverse(first);
+    }
+    public ListNode reverse(ListNode head){
+        ListNode prev=null;
+        ListNode curr=head;
+
+        while(curr!=null){
+            ListNode ahead=curr.next;
+            curr.next=prev;
+            prev=curr;
+            curr=ahead;
+        }
+        return prev;
+    }
+}
